@@ -1,35 +1,47 @@
 import React, { useEffect, useState } from 'react'
-import {StyledNav} from '../../../styled/elements/navBar/Nav.styled'
-import NavLink from '../nav/nav-link.component'
+import {StyledNavBar} from '../../../styled/elements/navBar/NavBar.styled'
+import {StyledNavLink} from '../../../styled/elements/navBar/NavLink.styled'
 import {Cart4 as CartIcon} from '@styled-icons/bootstrap'
 import Burger from './burger.component'
 import { useScrollBlock } from '../../../custom-hooks/useBodyScrollBlock';
 import { useWindowSize } from '../../../custom-hooks/useWindowSize';
 
 export default function Nav() {
-  const [isNavOpen, setIsNavOpen] = useState(true);
+  const windowSize = useWindowSize()[0];
   const [blockScroll, allowScroll] = useScrollBlock();
-  const windowSize = useWindowSize();
-
-  const onBurgerClickHandler = () => {
-    setIsNavOpen((prevState) => {
-      return !prevState;
-    });
-  }
+  
+  const [isNavOpen, setIsNavOpen] = useState(true);
 
   useEffect(() => {
-    if (isNavOpen) {
-      blockScroll();
-    } else {
-      allowScroll();
-    };
+    isNavOpen ? blockScroll() : allowScroll();
   }, [allowScroll, blockScroll, isNavOpen]);
 
   useEffect(() => {
-    if (windowSize[0] <= 768) {
+    if (windowSize <= 768) {
       setIsNavOpen(false);
-    }
+    };
   }, [windowSize]);
+
+  const onBurgerClickHandler = () => setIsNavOpen((prevState) => !prevState);
+
+  const links = [
+    {
+      to: '/shop',
+      content: 'Shop'
+    },
+    {
+      to: '/contact',
+      content: 'Contact'
+    },
+    {
+      to: '/login',
+      content: 'Sign in'
+    },
+    {
+      to: '/cart',
+      content: <CartIcon/>
+    }
+  ]
 
     return (
         <>
@@ -37,16 +49,14 @@ export default function Nav() {
           isNavOpen={isNavOpen} 
           onBurgerClick={onBurgerClickHandler}
         />
-        <StyledNav 
+        <StyledNavBar 
           isNavOpen={isNavOpen}
         >
-          <NavLink>Shop</NavLink>
-          <NavLink>Contact</NavLink>
-          <NavLink>Sign in</NavLink>
-          <NavLink>
-            <CartIcon/>
-          </NavLink>
-        </StyledNav>
+          {links.map((el, idx) => {
+            const { to, content } = el;
+            return <StyledNavLink key={idx} to={to}>{content}</StyledNavLink>
+          })}
+        </StyledNavBar>
         </>
     )
 }

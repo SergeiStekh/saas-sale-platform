@@ -1,6 +1,7 @@
 import styled from "styled-components"
+import { NavLink as BaseNavLink } from "react-router-dom";
 
-export const StyledNavLink = styled.a`
+export const StyledNavLink = styled(BaseNavLink)`
   cursor: pointer;
   color: '#000000';
   text-decoration: none;
@@ -12,9 +13,14 @@ export const StyledNavLink = styled.a`
     color: green;
   }
 
+  &.active {
+    color: darkblue;
+    filter: brightness(1.5);
+  }
+
   svg {
     width: 16px;
     height: 16px;
     vertical-align: initial;
   }
-`
+`;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledNav = styled.nav`
+export const StyledNavBar = styled.nav`
   position: absolute;
   display: flex;
   flex-direction: column;

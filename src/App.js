@@ -1,13 +1,14 @@
+import {Routes, Route} from 'react-router-dom'
 import Header from './components/main-header/header.component'
-import Categories from './components/directory/directory.component';
-import {StyledPageContainer} from './styled/elements/page-container.styled'
+import HomePage from './pages/home-page';
 
 function App() {
     return (
-        <StyledPageContainer>
-            <Header/>
-            <Categories/>
-        </StyledPageContainer>
+        <Routes>
+          <Route path='/' element={<Header />}>
+            <Route index element={<HomePage/>}/>
+          </Route>
+        </Routes>
     );
 }
 
