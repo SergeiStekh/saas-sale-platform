@@ -26,6 +26,7 @@ export default class FetchStoreService {
   getCategories = async () => {
     const products = await this.getData(this.productsUrl);
     let categories = await this.getData(this.categoriesUrl);
+
     categories = categories.map((categoryName, idx) => {
       const productFromCategory = products.filter((product) => product.category === categoryName)[0];
       return {
@@ -40,24 +41,20 @@ export default class FetchStoreService {
 
   getProductsInCategory = async (categoryName) => {
     const categories = await this.getCategories();
-    if (!categories.includes(categoryName)) {
+    const isCategoryExist = categories.includes(categoryName);
+    if (!isCategoryExist) {
       throw new Error('There is no such category in API');
     }
     const products = await this.getProducts();
     const productsInCategory = products.filter(product => product.category === categoryName);
-    console.log(productsInCategory)
     return this._transformProductsObject(productsInCategory);
   }
 
   _transformProductsObject(products) {
-    return products.map(({id, category, title, description, image, price}) => {
+    return products.map((product) => {
+      const {rating, ...other} = product;
       return {
-        id,
-        category,
-        title,
-        description,
-        image,
-        price
+        ...other
       }
     })
   }

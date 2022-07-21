@@ -8,7 +8,7 @@ import CategoryItem from './category-item.component'
 export default function Directory() {
   const fetchState = useFetchStoreService();
   const { directoryData, isLoading, isError } = fetchState;
-
+  
   if (isLoading) {
     return <Loader />
   }
