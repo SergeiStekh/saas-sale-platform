@@ -1,8 +1,8 @@
 import {useState, useEffect} from "react";
-import { StoreApi } from "../services/store-api";
-const store = new StoreApi();
+import FetchStoreService from "../services/fetch-store-service";
+const store = new FetchStoreService();
 
-export function useDirectoryData() {
+export function useFetchStoreService() {
   const [directoryData, setDirectoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);

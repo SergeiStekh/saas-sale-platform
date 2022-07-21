@@ -1,4 +1,4 @@
-export class StoreApi {
+export default class FetchStoreService {
   constructor() {
     this.productsUrl = 'https://fakestoreapi.com/products';
     this.categoriesUrl = 'https://fakestoreapi.com/products/categories';
