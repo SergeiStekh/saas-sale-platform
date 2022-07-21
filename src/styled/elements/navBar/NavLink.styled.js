@@ -6,7 +6,7 @@ export const StyledNavLink = styled.a`
   text-decoration: none;
   transition: color .3s linear;
   text-transform: uppercase;
-  word-spacing: -5px;
+  word-spacing: 0px;
 
   &:hover {
     color: green;

@@ -5,6 +5,6 @@ export const theme = {
         header: "#1acd6d"
     },
     fonts: {
-        primary: `Courier New, Courier, monospace`
+        primary: `Open Sans, sans-serif`
     }
 }
