@@ -16,11 +16,9 @@ export default function Nav({links}) {
         <>
         <Burger 
           isNavOpen={isNavOpen} 
-          onBurgerClick={(toggleNavBar)}
+          onBurgerClick={toggleNavBar}
         />
-        <StyledNavBar 
-          isNavOpen={isNavOpen}
-        >
+        <StyledNavBar isNavOpen={isNavOpen}>
           {linksList}
         </StyledNavBar>
         </>
