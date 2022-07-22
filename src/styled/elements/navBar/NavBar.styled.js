@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledNavBar = styled.nav`
   position: absolute;
+  z-index: 9;
   display: flex;
   flex-direction: column;
   width: 320px;
