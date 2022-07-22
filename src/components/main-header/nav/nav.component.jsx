@@ -5,7 +5,7 @@ import Burger from './burger.component'
 import useNavBar from '../../../custom-hooks/useNavBar'
 
 export default function Nav({links}) {
-  const { isNavOpen, toggleNavBar } = useNavBar();
+  const { isMobileMenuOpen, toggleNavBarMenu } = useNavBar();
 
   const linksList = links.map((el, idx) => {
     const { to, content } = el;
@@ -15,10 +15,10 @@ export default function Nav({links}) {
     return (
         <>
         <Burger 
-          isNavOpen={isNavOpen} 
-          onBurgerClick={toggleNavBar}
+          isMobileMenuOpen={isMobileMenuOpen} 
+          onBurgerClick={toggleNavBarMenu}
         />
-        <StyledNavBar isNavOpen={isNavOpen}>
+        <StyledNavBar isMobileMenuOpen={isMobileMenuOpen}>
           {linksList}
         </StyledNavBar>
         </>

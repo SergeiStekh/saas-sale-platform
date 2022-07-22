@@ -12,7 +12,7 @@ export const StyledNavBar = styled.nav`
   gap: 5%;
   top: 0;
   right: 0;
-  transform: translate(${({isNavOpen}) => isNavOpen ? '0px' : '340px'});
+  transform: translate(${({isMobileMenuOpen}) => isMobileMenuOpen ? '0px' : '340px'});
   background-color: ${({theme}) => theme.colors.header};
   transition: transform .3s linear;
 

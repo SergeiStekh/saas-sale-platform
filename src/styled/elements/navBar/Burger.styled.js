@@ -4,7 +4,7 @@ export const StyledBurger = styled.button `
   position: absolute;
   top: 24px;
   right: 15px;
-  transform: rotate(${({isNavOpen}) => isNavOpen ? '90deg' : '0deg'});
+  transform: rotate(${({isMobileMenuOpen}) => isMobileMenuOpen ? '90deg' : '0deg'});
   display: flex;
   flex-direction: column;
   justify-content: space-around;

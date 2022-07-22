@@ -5,10 +5,10 @@ import { useWindowSize } from "./useWindowSize"
 export default function useNavBar() {
   const windowSize = useWindowSize()[0];
   const [blockScroll, allowScroll] = useScrollBlock();
-  const [isNavOpen, setIsNavOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const toggleNavBar = () => {
-    setIsNavOpen((prevState) => {
+  const toggleNavBarMenu = () => {
+    setIsMobileMenuOpen((prevState) => {
       const currentNavBarState = !prevState;
       currentNavBarState ? blockScroll() : allowScroll();
       return currentNavBarState;
@@ -17,9 +17,9 @@ export default function useNavBar() {
 
   useEffect(() => {
     if (windowSize <= 768) {
-      setIsNavOpen(false);
+      setIsMobileMenuOpen(false);
     };
   }, [windowSize]);
 
-  return { isNavOpen, toggleNavBar }
+  return { isMobileMenuOpen, toggleNavBarMenu }
 }

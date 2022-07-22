@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyledBurger } from '../../../styled/elements/navBar/Burger.styled'
 
-export default function Burger({ isNavOpen, onBurgerClick }) {
+export default function Burger({ isMobileMenuOpen, onBurgerClick }) {
   return (
-    <StyledBurger isNavOpen={isNavOpen} onClick={onBurgerClick}>
+    <StyledBurger isMobileMenuOpen={isMobileMenuOpen} onClick={onBurgerClick}>
       <div />
       <div />
       <div />
