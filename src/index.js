@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter as Router} from 'react-router-dom';
-import {StyledPageContainer} from './styled/elements/page-container.styled';
+import {StyledPageContainer} from './styled/elements/layouts/page-layout.styled';
 import {ThemeProvider} from 'styled-components';
 import {theme} from './styled/theme'
 import GlobalStyles from './styled/global/Global';

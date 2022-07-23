@@ -2,7 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { StyledHeader } from '../../styled/elements/header/header.styled'
 import Logo from './logo.component'
-import logoImage from '../../assets/images/logo.png'
+import { logoImage } from '../../styled/icons/icons'
 import Nav from './nav/nav.component'
 import {Cart4 as CartIcon} from '@styled-icons/bootstrap'
 
@@ -19,6 +19,10 @@ export default function Header() {
     {
       to: '/login',
       content: 'Sign in'
+    },
+    {
+      to: '/register',
+      content: 'Sign up'
     },
     {
       to: '/cart',

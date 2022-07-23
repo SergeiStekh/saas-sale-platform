@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledLogo = styled.div`
   position: relative;
-  z-index: 10;
+  z-index: 9;
   width: 250px;
   height: 50px;
   transition: all .3s linear;
