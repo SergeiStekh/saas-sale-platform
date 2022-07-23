@@ -3,7 +3,8 @@ import {
   getAuth, 
   signInWithPopup,
   signInWithRedirect, 
-  GoogleAuthProvider
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword
 } from 'firebase/auth'
 
 const firebaseConfig = {

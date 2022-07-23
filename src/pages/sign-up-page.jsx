@@ -1,4 +1,4 @@
-import SignUp from '../components/sign-in/sign-up.component';
+import SignUp from '../components/sign-up/sign-up.component';
 import { StyledOneColumnLayout } from '../styled/elements/layouts/one-column-layout';
 
 export default function SignInPage() {

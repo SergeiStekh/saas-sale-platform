@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useScrollBlock } from "./useBodyScrollBlock"
 import { useWindowSize } from "./useWindowSize"
 
-export default function useNavBar() {
+export default function useMobileMenu() {
   const windowSize = useWindowSize()[0];
   const [blockScroll, allowScroll] = useScrollBlock();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
