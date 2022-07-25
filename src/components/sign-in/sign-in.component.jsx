@@ -1,4 +1,5 @@
 import React from 'react'
+import { generateInputData } from '../../assist-functions/generate-input-data';
 import { StyledSignUpForm } from '../../styled/elements/form/sign-up-form.styled';
 import useFormWithInputs from '../../custom-hooks/useFormWithInputs';
 import { logGoogleUser } from '../../utils/authFunctions'
@@ -9,11 +10,44 @@ import Input from '../form/input.component'
 import { googleIcon, facebookIcon, emailIcon, passwordIcon } from '../../styled/icons/icons'
 
 export default function SignIn() {
+  const signInInputsData = [
+    generateInputData({name: 'email', title: 'email', icon: emailIcon}),
+    generateInputData({name: 'password', title: 'Password', icon: passwordIcon}),
+  ]
+
   const { 
-    inputState, 
-    handleInputChange, 
-    onFormSubmit 
-  } = useFormWithInputs();
+    inputsState,
+    onInputChangeHandler,
+    onBlurHandler,
+    onPasteHandler,
+    onFormSubmitHandler
+  } = useFormWithInputs(signInInputsData);
+
+  const inputElements = signInInputsData.map((inputConfiguration, idx) => {
+    const { value, isValidated, validationErrorMessage, autocomplete, type, name, required, title, icon } = inputConfiguration;
+    return (
+      <Input 
+        key={idx} 
+        onInputChange={onInputChangeHandler}
+        onBlur={(event) => onBlurHandler(event, name)}
+        onPaste={(event) => onPasteHandler(event, name)}
+        value={inputsState[name]?.value || value}
+        isValidated={inputsState.hasOwnProperty(name) ? inputsState[name].isValidated : isValidated}
+        validationErrorMessage={inputsState.hasOwnProperty(name) ? inputsState[name].validationErrorMessage : validationErrorMessage}
+        autocomplete={autocomplete ? autocomplete : ""}
+        type={type}
+        name={name}
+        required={required}
+        title={title}
+        icon={icon}
+      />
+    )
+  });
+
+  const logUserWithEmailAndPassword = () => {
+    console.log("logging in")
+  }
+
 
   return (
     <StyledSignIn>
@@ -33,26 +67,8 @@ export default function SignIn() {
         Facebook
       </StyledButton>
       <Separator title={"OR"}/>
-      <StyledSignUpForm onSubmit={onFormSubmit}>
-        <Input 
-          onInputChange={handleInputChange}
-          value={inputState["email"] || ""}
-          type='text' 
-          name="email"
-          required={true}
-          title='Email' 
-          icon={emailIcon}
-        />
-        <Input 
-          onInputChange={handleInputChange}
-          value={inputState["password"] || ""}
-          autocomplete="current-password"
-          type='password' 
-          name="password"
-          required={true}
-          title='Password' 
-          icon={passwordIcon}
-        />
+      <StyledSignUpForm onSubmit={(event) => onFormSubmitHandler(event, logUserWithEmailAndPassword)}>
+        {inputElements}
         <StyledButton>Login</StyledButton>
       </StyledSignUpForm>  
     </StyledSignIn>

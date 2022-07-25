@@ -1,33 +1,102 @@
 import { useState, useEffect } from 'react'
+import { formValidator } from '../assist-functions/form-validation'
 
-export default function useFormWithInputs() {
-  const [inputState, setInputState] = useState({})
+export default function useFormWithInputs(initialStateArray) {
+  if (!initialStateArray) {
+    throw new Error("Please pass the initial state to useInitialState custom hook to prevent errors during validation");
+  }
 
-  const handleInputChange = (event) => {
+  const generateInitialState = () => {
+    const initialInputsState = {};
+
+    if (initialStateArray) {
+      initialStateArray.forEach(input => {
+        const { name, value, type, required, title, isValidated, validationErrorMessage } = input;
+        initialInputsState[name] = {
+          value,
+          type,
+          required,
+          title,
+          isValidated,
+          validationErrorMessage
+        }
+      }) 
+    }
+    return initialInputsState
+  }
+
+  const [inputsState, setInputsState] = useState(generateInitialState());
+
+  const onInputChangeHandler = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
 
-    setInputState((prevState) => {
+    setInputsState((prevState) => {
       return {
         ...prevState,
-        [name]: value
+        [name]: {
+          ...prevState[name],
+          value,
+          isValidated: true,
+          validationErrorMessage: ""
+        }
       }
     });
   }
 
-  useEffect(() => {
-    console.log(inputState)
-  }, [inputState])
+  const resetFormFields = () => {
+    setInputsState(generateInitialState(initialStateArray));
+  }
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    console.log("signUp")
+  const onBlurHandler = (event, fieldName) => {
+    event.preventDefault();
+    console.log(inputsState)
+    const fieldStateAfterValidation = formValidator.validateField(inputsState, fieldName, inputsState[fieldName]);
+    setInputsState((prevState) => {
+      return {
+        ...prevState,
+        fieldStateAfterValidation
+      }
+    });
+  }
+
+  const onPasteHandler = (event) => {
+    const { name, value } = event.target;
+    console.log(value)
+    setInputsState((prevState) => {
+      return {
+        ...prevState,
+        [name]: {
+          ...prevState[name],
+          value,
+          isValidated: true,
+          validationErrorMessage: ""
+        }
+      }
+    });
+  }
+
+  const onFormSubmitHandler = async (event, actionOnFormSubmit) => {
+    event.preventDefault();
+    if (!actionOnFormSubmit) {
+      throw new Error("Please provide to onFormSubmitHandler in useFormWithInputs customHook, to handle behavior after form submit. If not handled, form will not work as expected.")
+    }
+    const stateAfterValidation = formValidator.validateForm(inputsState);
+    const isAllFieldsValidated = formValidator.isAllFieldsValidated(stateAfterValidation);
+    setInputsState(stateAfterValidation);
+
+    if (isAllFieldsValidated) {
+      actionOnFormSubmit();
+      resetFormFields();
+    }
   }
 
   return {
-    inputState,
-    handleInputChange,
-    onFormSubmit
+    inputsState,
+    onInputChangeHandler,
+    onBlurHandler,
+    onPasteHandler,
+    onFormSubmitHandler
   }
 }
 

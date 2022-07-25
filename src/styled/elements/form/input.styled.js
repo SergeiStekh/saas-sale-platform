@@ -12,7 +12,7 @@ export const StyledInput = styled.div`
     max-height: 51px;
     font-size: 18px;
     line-height: 21px;
-    background: #F2F2F2;
+    background: ${({isValidated}) => isValidated ? "#F2F2F2" : "#f5b8b8"};
     border-radius: 15px;
     padding: 0 50px;
     padding-top: 18px;
