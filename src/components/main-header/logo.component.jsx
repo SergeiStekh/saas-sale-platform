@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import React from 'react'
 import { StyledLogo } from '../../styled/elements/header/header-logo.styled'
-import { StyledNavLink } from '../../styled/elements/navBar/NavLink.styled'
+import { StyledNavLink } from '../../styled/elements/navBar/nav-link.styled'
 
 export default function Logo({image}) {
   return (

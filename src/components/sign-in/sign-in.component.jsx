@@ -8,6 +8,8 @@ import Input from '../form/input.component'
 import { StyledSignUpForm } from '../../styled/elements/form/sign-up-form.styled';
 import { StyledSignIn } from '../../styled/elements/sign-in/sign-in.styled';
 import { StyledButton } from '../../styled/elements/button/button.styled';
+import Modal from '../modal/modal';
+import modalImage from '../../assets/images/logo.png'
 
 export default function SignIn() {
   const signInInputsData = [
@@ -29,23 +31,29 @@ export default function SignIn() {
 
     const { value, isValidated, validationErrorMessage } = inputsState[name];
 
-    const inputProps = { autocomplete, type, name, required, title, icon, value, isValidated, validationErrorMessage }
+    const onChange = onInputChangeHandler;
+    const onBlur = (event) => onBlurHandler(event, name);
+    const onPaste = (event) => onPasteHandler(event, name);
+
+    const inputElementProps = { type, value, autoComplete: autocomplete, name, onChange, onBlur, onPaste };
+
+    const inputTitleProps = { title, validationErrorMessage };
+
+    const styledInputProps = { icon, isValidated, validationErrorMessage };
 
     return (
       <Input 
-        key={idx} 
-        onChange={onInputChangeHandler}
-        onBlur={(event) => onBlurHandler(event, name)}
-        onPaste={(event) => onPasteHandler(event, name)}
-        {...inputProps}
+        key={idx}
+        inputElementProps={inputElementProps}
+        inputTitleProps={inputTitleProps}
+        styledInputProps={styledInputProps}
       />
     )
   });
 
   const logUserWithEmailAndPassword = () => {
-    console.log("logging in")
+    
   }
-
 
   return (
     <StyledSignIn>

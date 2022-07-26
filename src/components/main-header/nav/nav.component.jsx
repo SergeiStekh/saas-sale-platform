@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import React from 'react'
-import {StyledNavBar} from '../../../styled/elements/navBar/NavBar.styled'
-import {StyledNavLink} from '../../../styled/elements/navBar/NavLink.styled'
+import {StyledNavBar} from '../../../styled/elements/navBar/nav-bar.styled'
+import {StyledNavLink} from '../../../styled/elements/navBar/nav-link.styled'
 import Burger from './burger.component'
 import useMobileMenu from '../../../custom-hooks/useMobileMenu'
 import { StyledOverlay } from '../../../styled/elements/navBar/overlay.styled'

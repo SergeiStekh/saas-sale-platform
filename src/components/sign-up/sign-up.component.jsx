@@ -27,19 +27,26 @@ export default function SignUp() {
   } = useFormWithInputs(signUpInputsData);
 
   const inputElements = signUpInputsData.map((inputConfiguration, idx) => {
-    const { autocomplete, type, name, required, title, icon } = inputConfiguration;
+    const { autocomplete, type, name, title, icon } = inputConfiguration;
 
     const { value, isValidated, validationErrorMessage } = inputsState[name];
 
-    const inputProps = { autocomplete, type, name, required, title, icon, value, isValidated, validationErrorMessage }
+    const onChange = onInputChangeHandler;
+    const onBlur = (event) => onBlurHandler(event, name);
+    const onPaste = (event) => onPasteHandler(event, name);
+
+    const inputElementProps = { type, value, autoComplete: autocomplete, name, onChange, onBlur, onPaste };
+
+    const inputTitleProps = { title, validationErrorMessage };
+
+    const styledInputProps = { icon, isValidated, validationErrorMessage };
 
     return (
       <Input 
-        key={idx} 
-        onChange={onInputChangeHandler}
-        onBlur={(event) => onBlurHandler(event, name)}
-        onPaste={(event) => onPasteHandler(event, name)}
-        {...inputProps}
+        key={idx}
+        inputElementProps={inputElementProps}
+        inputTitleProps={inputTitleProps}
+        styledInputProps={styledInputProps}
       />
     )
   });

@@ -2,42 +2,39 @@ import PropTypes from "prop-types"
 import React from 'react'
 import {StyledInput} from '../../styled/elements/form/input.styled'
 
-export default function Input({
-    type = 'text',
-    isValidated = true,
-    validationErrorMessage = "",
-    autocomplete = "",
-    icon,
-    title,
-    required,
-    ...otherProps
-}) {
+export default function Input({inputElementProps, inputTitleProps, styledInputProps}) {
+    const { title, validationErrorMessage } = inputTitleProps;
+
+    const titleValidationMessage = validationErrorMessage ? ` - ${validationErrorMessage}` : '';
+
     return (
-        <StyledInput
-            icon={icon}
-            isValidated={isValidated}
-            validationErrorMessage={validationErrorMessage}>
-            <p>{title}{validationErrorMessage ? ' - ' : ''}{validationErrorMessage}</p>
+        <StyledInput {...styledInputProps}>
+            <p>{title}{titleValidationMessage}</p>
             <div/>
-            <input
-                type={type}
-                autoComplete={autocomplete}
-                {...otherProps}
-                />
+            <input {...inputElementProps}/>
         </StyledInput>
     )
 }
 
 Input.propTypes = {
-    autocomplete: PropTypes.string,
-    icon: PropTypes.string,
-    isValidated: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired,
-    onBlur: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onPaste: PropTypes.func.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    validationErrorMessage: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
+    inputElementProps: PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+        autoComplete: PropTypes.string,
+        name: PropTypes.string,
+        onChange: PropTypes.func.isRequired,
+        onBlur: PropTypes.func.isRequired,
+        onPaste: PropTypes.func.isRequired,
+    }),
+    inputTitleProps: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        validationErrorMessage: PropTypes.string.isRequired
+    }),
+    styledInputProps: PropTypes.shape({
+        icon: PropTypes.string.isRequired,
+        isValidated: PropTypes.bool.isRequired,
+        validationErrorMessage: PropTypes.string.isRequired
+    }),
 }
+
+

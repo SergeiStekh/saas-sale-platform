@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React from 'react'
-import { StyledBurger } from '../../../styled/elements/navBar/Burger.styled'
+import { StyledBurger } from '../../../styled/elements/navBar/burger.styled'
 
 export default function Burger({ isMobileMenuOpen, onBurgerClick }) {
   return (
