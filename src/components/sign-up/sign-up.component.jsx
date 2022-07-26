@@ -31,7 +31,7 @@ export default function SignUp() {
     return (
       <Input 
         key={idx} 
-        onInputChange={onInputChangeHandler}
+        onChange={onInputChangeHandler}
         onBlur={(event) => onBlurHandler(event, name)}
         onPaste={(event) => onPasteHandler(event, name)}
         value={inputsState[name]?.value || value}

@@ -29,8 +29,11 @@ export default function Nav({links}) {
 }
 
 Nav.propTypes = {
-  links: React.PropTypes.arrayOf(React.PropTypes.shape({
-    to: React.PropTypes.string.isRequired,
-    content: React.PropTypes.string.isRequired,
+  links: PropTypes.arrayOf(PropTypes.shape({
+    to: PropTypes.string.isRequired,
+    content: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ]),
   })).isRequired
 }

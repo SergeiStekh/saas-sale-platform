@@ -4,10 +4,10 @@ export function generateInputData({
   validationErrorMessage = "",
   autocomplete = "",
   type = "text",
-  name,
   required = true,
-  title,
-  icon = ""
+  icon = "",
+  name,
+  title
 }) {
   return {
     value,

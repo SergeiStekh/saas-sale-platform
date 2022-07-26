@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { formValidator } from '../assist-functions/form-validation'
 
 export default function useFormWithInputs(initialStateArray) {
@@ -50,7 +50,7 @@ export default function useFormWithInputs(initialStateArray) {
 
   const onBlurHandler = (event, fieldName) => {
     event.preventDefault();
-    console.log(inputsState)
+
     const fieldStateAfterValidation = formValidator.validateField(inputsState, fieldName, inputsState[fieldName]);
     setInputsState((prevState) => {
       return {
@@ -62,7 +62,7 @@ export default function useFormWithInputs(initialStateArray) {
 
   const onPasteHandler = (event) => {
     const { name, value } = event.target;
-    console.log(value)
+    
     setInputsState((prevState) => {
       return {
         ...prevState,

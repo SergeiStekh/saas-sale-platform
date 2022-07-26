@@ -4,16 +4,13 @@ import {StyledInput} from '../../styled/elements/form/input.styled'
 
 export default function Input({
     type = 'text',
-    name,
-    value,
     isValidated = true,
     validationErrorMessage = "",
     autocomplete = "",
-    onInputChange,
-    onBlur,
-    onPaste,
+    icon,
     title,
-    icon
+    required,
+    ...otherProps
 }) {
     return (
         <StyledInput
@@ -24,12 +21,8 @@ export default function Input({
             <div/>
             <input
                 type={type}
-                value={value}
                 autoComplete={autocomplete}
-                name={name}
-                onChange={(event) => onInputChange(event)}
-                onBlur={(event) => onBlur(event)}
-                onPaste={(event) => onPaste(event)}
+                {...otherProps}
                 />
         </StyledInput>
     )
@@ -41,7 +34,7 @@ Input.propTypes = {
     isValidated: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func.isRequired,
-    onInputChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
     onPaste: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

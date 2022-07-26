@@ -43,7 +43,6 @@ export class FormValidator {
   }
 
   validateField = (inputsState, fieldName, fieldValue) => {
-    console.log(fieldValue)
     const isRules = this.validationRules.filter(rule => rule.field === fieldName);
     const rules = isRules.length > 0 ? isRules[0] : undefined;
     
@@ -89,7 +88,6 @@ export class FormValidator {
         }
       }
     });
-    console.log(fieldValue)
     const validateIfRequired = this.validateRequiredField(fieldValue);
 
     return validateIfRequired
@@ -98,7 +96,7 @@ export class FormValidator {
   validateRequiredField = (fieldValue) => {
     const immutableFieldCopy = {...fieldValue};
     const { required, value } = immutableFieldCopy;
-    console.log(required, value)
+
     if (required && value === '') {
       immutableFieldCopy.isValidated = false;
       immutableFieldCopy.validationErrorMessage = `This field can'\t be empty`;

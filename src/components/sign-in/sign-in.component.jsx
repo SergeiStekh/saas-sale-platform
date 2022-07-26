@@ -24,22 +24,20 @@ export default function SignIn() {
   } = useFormWithInputs(signInInputsData);
 
   const inputElements = signInInputsData.map((inputConfiguration, idx) => {
-    const { value, isValidated, validationErrorMessage, autocomplete, type, name, required, title, icon } = inputConfiguration;
+
+    const { autocomplete, type, name, required, title, icon } = inputConfiguration;
+
+    const { value, isValidated, validationErrorMessage } = inputsState[name];
+
+    const inputProps = { autocomplete, type, name, required, title, icon, value, isValidated, validationErrorMessage }
+
     return (
       <Input 
         key={idx} 
-        onInputChange={onInputChangeHandler}
+        onChange={onInputChangeHandler}
         onBlur={(event) => onBlurHandler(event, name)}
         onPaste={(event) => onPasteHandler(event, name)}
-        value={inputsState[name]?.value || value}
-        isValidated={inputsState.hasOwnProperty(name) ? inputsState[name].isValidated : isValidated}
-        validationErrorMessage={inputsState.hasOwnProperty(name) ? inputsState[name].validationErrorMessage : validationErrorMessage}
-        autocomplete={autocomplete ? autocomplete : ""}
-        type={type}
-        name={name}
-        required={required}
-        title={title}
-        icon={icon}
+        {...inputProps}
       />
     )
   });
