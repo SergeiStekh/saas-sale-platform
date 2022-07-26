@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from "prop-types"; 
 import { StyledCategoryItem } from '../../styled/elements/directory/category-item.styled'
 
 export default function CategoriesItem({title, image}) {
@@ -14,3 +15,10 @@ export default function CategoriesItem({title, image}) {
     </StyledCategoryItem>
   )
 }
+
+CategoriesItem.propTypes = {
+  image: PropTypes.string,
+  title: PropTypes.string
+}
+
+

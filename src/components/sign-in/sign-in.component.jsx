@@ -1,13 +1,13 @@
 import React from 'react'
-import { generateInputData } from '../../assist-functions/generate-input-data';
-import { StyledSignUpForm } from '../../styled/elements/form/sign-up-form.styled';
-import useFormWithInputs from '../../custom-hooks/useFormWithInputs';
 import { logGoogleUser } from '../../utils/authFunctions'
-import { StyledSignIn } from '../../styled/elements/sign-in/sign-in.styled';
-import { StyledButton } from '../../styled/elements/button/button.styled';
+import { generateInputData } from '../../assist-functions/generate-input-data';
+import useFormWithInputs from '../../custom-hooks/useFormWithInputs';
+import { googleIcon, facebookIcon, emailIcon, passwordIcon } from '../../styled/icons/icons'
 import Separator from '../UIcomponents/separator.UIcomponent';
 import Input from '../form/input.component'
-import { googleIcon, facebookIcon, emailIcon, passwordIcon } from '../../styled/icons/icons'
+import { StyledSignUpForm } from '../../styled/elements/form/sign-up-form.styled';
+import { StyledSignIn } from '../../styled/elements/sign-in/sign-in.styled';
+import { StyledButton } from '../../styled/elements/button/button.styled';
 
 export default function SignIn() {
   const signInInputsData = [

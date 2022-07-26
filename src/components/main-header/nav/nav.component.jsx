@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from 'react'
 import {StyledNavBar} from '../../../styled/elements/navBar/NavBar.styled'
 import {StyledNavLink} from '../../../styled/elements/navBar/NavLink.styled'
@@ -25,4 +26,11 @@ export default function Nav({links}) {
           </StyledNavBar>
         </>
     )
+}
+
+Nav.propTypes = {
+  links: React.PropTypes.arrayOf(React.PropTypes.shape({
+    to: React.PropTypes.string.isRequired,
+    content: React.PropTypes.string.isRequired,
+  })).isRequired
 }

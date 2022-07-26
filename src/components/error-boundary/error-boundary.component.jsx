@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React, {Component} from 'react'
 
 export default class ErrorBoundary extends Component {
@@ -29,4 +30,8 @@ export default class ErrorBoundary extends Component {
       
       return children
     }
+}
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.node
 }

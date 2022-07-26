@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from 'react'
 import { StyledBurger } from '../../../styled/elements/navBar/Burger.styled'
 
@@ -9,4 +10,9 @@ export default function Burger({ isMobileMenuOpen, onBurgerClick }) {
       <div />
     </StyledBurger>
   )
+}
+
+Burger.propTypes = {
+  isMobileMenuOpen: PropTypes.bool.isRequired,
+  onBurgerClick: PropTypes.func.isRequired
 }
