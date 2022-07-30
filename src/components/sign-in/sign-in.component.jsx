@@ -1,5 +1,5 @@
 import React from 'react'
-import { logGoogleUser } from '../../utils/authFunctions'
+import authWithGoogle from '../../utils/authFunctions/authWithGoogle.utils'
 import { generateInputData } from '../../assist-functions/generate-input-data';
 import useFormWithInputs from '../../custom-hooks/useFormWithInputs';
 import { googleIcon, facebookIcon, emailIcon, passwordIcon } from '../../styled/icons/icons'
@@ -25,9 +25,9 @@ export default function SignIn() {
     onFormSubmitHandler
   } = useFormWithInputs(signInInputsData);
 
-  const inputElements = signInInputsData.map((inputConfiguration, idx) => {
+  const inputElements = signInInputsData.map((signInInputsData, idx) => {
 
-    const { autocomplete, type, name, required, title, icon } = inputConfiguration;
+    const { autocomplete, type, name, title, icon } = signInInputsData;
 
     const { value, isValidated, validationErrorMessage } = inputsState[name];
 
@@ -60,14 +60,14 @@ export default function SignIn() {
       <h1>A already have an account</h1>
       <h2>Sign in with:</h2>
       <StyledButton 
-        onClick={logGoogleUser}
+        onClick={authWithGoogle}
         icon={googleIcon}
       >
         Google
       </StyledButton>
 
       <StyledButton 
-        onClick={logGoogleUser}
+        onClick={authWithGoogle}
         icon={facebookIcon}
       >
         Facebook

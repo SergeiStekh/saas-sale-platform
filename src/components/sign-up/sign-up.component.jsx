@@ -1,8 +1,8 @@
 import React from 'react'
 import useFormWithInputs from '../../custom-hooks/useFormWithInputs';
 import { generateInputData } from '../../assist-functions/generate-input-data';
-import { registerUserWithEmailAndPassword } from '../../utils/authFunctions'
-import { logGoogleUser } from '../../utils/authFunctions'
+import authWithEmailAndPassword from '../../utils/authFunctions/authWithEmailAndPassword.utils'
+import authWithGoogle from '../../utils/authFunctions/authWithGoogle.utils'
 import { StyledSignUpForm } from '../../styled/elements/form/sign-up-form.styled'
 import { StyledSignUp } from '../../styled/elements/sign-in/sign-up.styled';
 import { StyledButton } from '../../styled/elements/button/button.styled';
@@ -26,8 +26,8 @@ export default function SignUp() {
     onFormSubmitHandler
   } = useFormWithInputs(signUpInputsData);
 
-  const inputElements = signUpInputsData.map((inputConfiguration, idx) => {
-    const { autocomplete, type, name, title, icon } = inputConfiguration;
+  const inputElements = signUpInputsData.map((signUpInputsData, idx) => {
+    const { autocomplete, type, name, title, icon } = signUpInputsData;
 
     const { value, isValidated, validationErrorMessage } = inputsState[name];
 
@@ -51,12 +51,12 @@ export default function SignUp() {
     )
   });
 
-  const sendDataToServer = async () => {
+  const registerUserWithEmailAndPassword = async () => {
     const name = inputsState["name"].value;
     const email = inputsState["email"].value;
     const password = inputsState["password"].value;
 
-    registerUserWithEmailAndPassword(name, email, password);
+    authWithEmailAndPassword(name, email, password);
   }
 
   return (
@@ -64,20 +64,20 @@ export default function SignUp() {
       <h1>I don't have an account</h1>
       <h2>Sign up with:</h2>
       <StyledButton 
-        onClick={logGoogleUser}
+        onClick={authWithGoogle}
         icon={googleIcon}
       >
         Google
       </StyledButton>
 
       <StyledButton 
-        onClick={logGoogleUser}
+        onClick={authWithGoogle}
         icon={facebookIcon}
       >
         Facebook
       </StyledButton>
       <Separator title={"OR"}/>
-      <StyledSignUpForm onSubmit={(event) => onFormSubmitHandler(event, sendDataToServer)}>
+      <StyledSignUpForm onSubmit={(event) => onFormSubmitHandler(event, registerUserWithEmailAndPassword)}>
         {inputElements}
         <StyledButton>Sign up</StyledButton>
       </StyledSignUpForm>

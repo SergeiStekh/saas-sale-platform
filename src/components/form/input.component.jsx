@@ -7,10 +7,13 @@ export default function Input({inputElementProps, inputTitleProps, styledInputPr
 
     const titleValidationMessage = validationErrorMessage ? ` - ${validationErrorMessage}` : '';
 
+    const { name } = inputElementProps;
+
     return (
         <StyledInput {...styledInputProps}>
             <p>{title}{titleValidationMessage}</p>
             <div/>
+            <label htmlFor={name}></label>
             <input {...inputElementProps}/>
         </StyledInput>
     )
@@ -21,7 +24,7 @@ Input.propTypes = {
         type: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,
         autoComplete: PropTypes.string,
-        name: PropTypes.string,
+        name: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
         onBlur: PropTypes.func.isRequired,
         onPaste: PropTypes.func.isRequired,
