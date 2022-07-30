@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { UserContext } from '../../contexts/user.context'
+import React from 'react'
 import Modal from '../modal/modal'
 import useModal from '../../custom-hooks/useModal'
 import authWithGoogle from '../../utils/authFunctions/authWithGoogle.utils'
@@ -7,7 +6,7 @@ import logInWithEmailAndPassword from '../../utils/authFunctions/logInWithEmailA
 import { getAuthErrorMessageByErrorCode } from '../../utils/getAuthErrorMessageByErrorCode'
 import { generateInputData } from '../../assist-functions/generate-input-data';
 import useFormWithInputs from '../../custom-hooks/useFormWithInputs';
-import { googleIcon, facebookIcon, emailIcon, passwordIcon } from '../../styled/icons/icons'
+import { googleIcon, emailIcon, passwordIcon } from '../../styled/icons/icons'
 import Separator from '../UIcomponents/separator.UIcomponent';
 import Input from '../form/input.component'
 import { StyledSignUpForm } from '../../styled/elements/form/sign-up-form.styled';
@@ -15,7 +14,6 @@ import { StyledSignIn } from '../../styled/elements/sign-in/sign-in.styled';
 import { StyledButton } from '../../styled/elements/button/button.styled';
 
 export default function SignInForm() {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
   const { modalState, onModalClose, showModal } = useModal();
 
   const signInInputsData = [
@@ -70,13 +68,11 @@ export default function SignInForm() {
       showModal(errorMessage);
       return errorMessage
     }
-    setCurrentUser(user);
     resetFormFields();
   }
 
   const logUserWithGoogle = async () => {
-    const user = await authWithGoogle();
-    setCurrentUser(user);
+    await authWithGoogle();
     resetFormFields();
   }
 

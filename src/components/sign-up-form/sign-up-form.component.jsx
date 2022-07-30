@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { UserContext } from '../../contexts/user.context'
+import React from 'react'
 import Modal from '../modal/modal'
 import useModal from '../../custom-hooks/useModal'
 import { getAuthErrorMessageByErrorCode } from '../../utils/getAuthErrorMessageByErrorCode'
@@ -12,10 +11,9 @@ import { StyledSignUp } from '../../styled/elements/sign-in/sign-up.styled';
 import { StyledButton } from '../../styled/elements/button/button.styled';
 import Separator from '../UIcomponents/separator.UIcomponent';
 import Input from '../form/input.component'
-import { googleIcon, facebookIcon, emailIcon, passwordIcon, nameIcon, confirmIcon } from '../../styled/icons/icons'
+import { googleIcon, emailIcon, passwordIcon, nameIcon, confirmIcon } from '../../styled/icons/icons'
 
 export default function SignUpForm() {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
   const { modalState, onModalClose, showModal } = useModal();
 
   const signUpInputsData = [
@@ -74,7 +72,6 @@ export default function SignUpForm() {
       return errorMessage
     }
     resetFormFields();
-    setCurrentUser(user);
   }
 
   return (
