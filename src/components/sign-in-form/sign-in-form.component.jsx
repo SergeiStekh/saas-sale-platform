@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { UserContext } from '../../contexts/user.context'
 import Modal from '../modal/modal'
 import useModal from '../../custom-hooks/useModal'
 import authWithGoogle from '../../utils/authFunctions/authWithGoogle.utils'
@@ -14,6 +15,7 @@ import { StyledSignIn } from '../../styled/elements/sign-in/sign-in.styled';
 import { StyledButton } from '../../styled/elements/button/button.styled';
 
 export default function SignInForm() {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const { modalState, onModalClose, showModal } = useModal();
 
   const signInInputsData = [
@@ -59,15 +61,22 @@ export default function SignInForm() {
   const logUserWithEmailAndPassword = async () => {
     const email = inputsState["email"].value;
     const password = inputsState["password"].value;
-    const result = await logInWithEmailAndPassword(email, password);
+    const user = await logInWithEmailAndPassword(email, password);
     
-    const { code: errorCode } = result;
+    const { code: errorCode } = user;
     
     if (errorCode) {
       const errorMessage = getAuthErrorMessageByErrorCode(errorCode);
       showModal(errorMessage);
       return errorMessage
     }
+    setCurrentUser(user);
+    resetFormFields();
+  }
+
+  const logUserWithGoogle = async () => {
+    const user = await authWithGoogle();
+    setCurrentUser(user);
     resetFormFields();
   }
 
@@ -75,11 +84,8 @@ export default function SignInForm() {
     <StyledSignIn>
       <h1>A already have an account</h1>
       <h2>Sign in with:</h2>
-      <StyledButton onClick={authWithGoogle} icon={googleIcon}>
+      <StyledButton onClick={logUserWithGoogle} icon={googleIcon}>
         Google
-      </StyledButton>
-      <StyledButton onClick={authWithGoogle} icon={facebookIcon}
-      >Facebook
       </StyledButton>
       <Separator title={"OR"}/>
       <StyledSignUpForm onSubmit={(event) => onFormSubmitHandler(event, logUserWithEmailAndPassword)}>

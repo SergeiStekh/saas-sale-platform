@@ -3,6 +3,7 @@ import {
   getAuth, 
   signInWithPopup,
   signInWithRedirect, 
+  signOut,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
@@ -38,3 +39,5 @@ export const createAuthUserWithEmailAndPassword = async (email, password) =>  {
 }
 
 export const signInWithUserEmailAndPassword = (email, password) => signInWithEmailAndPassword(auth, email, password);
+
+export const signOutUser = async () => await signOut(auth);

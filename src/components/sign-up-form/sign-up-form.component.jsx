@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { UserContext } from '../../contexts/user.context'
 import Modal from '../modal/modal'
 import useModal from '../../custom-hooks/useModal'
 import { getAuthErrorMessageByErrorCode } from '../../utils/getAuthErrorMessageByErrorCode'
@@ -14,6 +15,7 @@ import Input from '../form/input.component'
 import { googleIcon, facebookIcon, emailIcon, passwordIcon, nameIcon, confirmIcon } from '../../styled/icons/icons'
 
 export default function SignUpForm() {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const { modalState, onModalClose, showModal } = useModal();
 
   const signUpInputsData = [
@@ -28,7 +30,8 @@ export default function SignUpForm() {
     onInputChangeHandler, 
     onBlurHandler,
     onPasteHandler,
-    onFormSubmitHandler
+    onFormSubmitHandler,
+    resetFormFields
   } = useFormWithInputs(signUpInputsData);
 
   const inputElements = signUpInputsData.map((signUpInputsData, idx) => {
@@ -61,15 +64,17 @@ export default function SignUpForm() {
     const email = inputsState["email"].value;
     const password = inputsState["password"].value;
 
-    const result = await authWithEmailAndPassword(name, email, password);
+    const user = await authWithEmailAndPassword(name, email, password);
 
-    const { code } = result;
-    console.log(result)
-    if (code) {
-      const errorMessage = getAuthErrorMessageByErrorCode(code);
+    const { code: errorCode } = user;
+    
+    if (errorCode) {
+      const errorMessage = getAuthErrorMessageByErrorCode(errorCode);
       showModal(errorMessage);
       return errorMessage
     }
+    resetFormFields();
+    setCurrentUser(user);
   }
 
   return (
@@ -81,13 +86,6 @@ export default function SignUpForm() {
         icon={googleIcon}
       >
         Google
-      </StyledButton>
-
-      <StyledButton 
-        onClick={authWithGoogle}
-        icon={facebookIcon}
-      >
-        Facebook
       </StyledButton>
       <Separator title={"OR"}/>
       <StyledSignUpForm onSubmit={(event) => onFormSubmitHandler(event, registerUserWithEmailAndPassword)}>

@@ -4,8 +4,13 @@ import {
 import { createUserDocumentAuth } from '../firebase-firestore.utils';
 
 const authWithGoogle = async () => {
-  const { user } = await signInWithGooglePopup();
-  const userDocRef = await createUserDocumentAuth(user);
+  try {
+    const { user } = await signInWithGooglePopup();
+    await createUserDocumentAuth(user);
+    return user
+  } catch(error) {
+    return error
+  }
 }
 
 export default authWithGoogle;
