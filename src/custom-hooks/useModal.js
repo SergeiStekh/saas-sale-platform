@@ -1,18 +1,11 @@
 import { useState } from 'react'
 
-export function useModal(closeModalRef, modalOverlayRef, isOpenWhenInitialized) {
+export default function useModal() {
+  const [modalState, setModalState] = useState({isOpen: false, messages: ""});
 
-  const [isModalOpen, setIsModalOpen] = useState(isOpenWhenInitialized);
+  const onModalClose = () => setModalState({isOpen: false, messages: ""});
 
-  const onModalCloseHandler = (event) => {
-    event.preventDefault();
-    const { target } = event;
+  const showModal = (messages) => setModalState({isOpen: true, messages});
 
-    if (target !== modalOverlayRef.current && target !== closeModalRef.current) {
-      return
-    }
-    setIsModalOpen(false);
-  }
-
-  return {isModalOpen, onModalCloseHandler}
+  return { modalState, onModalClose, showModal }
 }

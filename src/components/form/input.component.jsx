@@ -8,7 +8,7 @@ export default function Input({inputElementProps, inputTitleProps, styledInputPr
     const titleValidationMessage = validationErrorMessage ? ` - ${validationErrorMessage}` : '';
 
     const { name } = inputElementProps;
-
+    
     return (
         <StyledInput {...styledInputProps}>
             <p>{title}{titleValidationMessage}</p>

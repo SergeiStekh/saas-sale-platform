@@ -84,10 +84,8 @@ export default function useFormWithInputs(initialStateArray) {
     const stateAfterValidation = formValidator.validateForm(inputsState);
     const isAllFieldsValidated = formValidator.isAllFieldsValidated(stateAfterValidation);
     setInputsState(stateAfterValidation);
-
     if (isAllFieldsValidated) {
       actionOnFormSubmit();
-      resetFormFields();
     }
   }
 
@@ -96,7 +94,8 @@ export default function useFormWithInputs(initialStateArray) {
     onInputChangeHandler,
     onBlurHandler,
     onPasteHandler,
-    onFormSubmitHandler
+    onFormSubmitHandler,
+    resetFormFields
   }
 }
 

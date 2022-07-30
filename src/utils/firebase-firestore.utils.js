@@ -34,3 +34,15 @@ export const createUserDocumentAuth = async (userAuthResponse, additionalInforma
 
   return userDocRef;
 }
+
+export const logInUserDocumentAuth = async (userAuthResponse, additionalInformation = {}) => {
+  if (!userAuthResponse) {
+    return
+  }
+
+  const userDocRef = doc(db, 'users', userAuthResponse.uid);
+  const userSnapshot = await getDoc(userDocRef);
+  const isUserExist = userSnapshot.exists();
+
+  return {userDocRef, isUserExist};
+}

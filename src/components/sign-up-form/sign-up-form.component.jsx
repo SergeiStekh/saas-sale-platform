@@ -1,4 +1,7 @@
 import React from 'react'
+import Modal from '../modal/modal'
+import useModal from '../../custom-hooks/useModal'
+import { getAuthErrorMessageByErrorCode } from '../../utils/getAuthErrorMessageByErrorCode'
 import useFormWithInputs from '../../custom-hooks/useFormWithInputs';
 import { generateInputData } from '../../assist-functions/generate-input-data';
 import authWithEmailAndPassword from '../../utils/authFunctions/authWithEmailAndPassword.utils'
@@ -10,7 +13,9 @@ import Separator from '../UIcomponents/separator.UIcomponent';
 import Input from '../form/input.component'
 import { googleIcon, facebookIcon, emailIcon, passwordIcon, nameIcon, confirmIcon } from '../../styled/icons/icons'
 
-export default function SignUp() {
+export default function SignUpForm() {
+  const { modalState, onModalClose, showModal } = useModal();
+
   const signUpInputsData = [
     generateInputData({autocomplete: "username", name: "name", title: "Name", icon: nameIcon}),
     generateInputData({name: "email", title: "Email", icon: emailIcon}),
@@ -56,7 +61,15 @@ export default function SignUp() {
     const email = inputsState["email"].value;
     const password = inputsState["password"].value;
 
-    authWithEmailAndPassword(name, email, password);
+    const result = await authWithEmailAndPassword(name, email, password);
+
+    const { code } = result;
+    console.log(result)
+    if (code) {
+      const errorMessage = getAuthErrorMessageByErrorCode(code);
+      showModal(errorMessage);
+      return errorMessage
+    }
   }
 
   return (
@@ -81,6 +94,7 @@ export default function SignUp() {
         {inputElements}
         <StyledButton>Sign up</StyledButton>
       </StyledSignUpForm>
+      <Modal isOpen={modalState.isOpen} messages={modalState.messages} onCloseModalHandler={onModalClose}/>
     </StyledSignUp>
   )
 }

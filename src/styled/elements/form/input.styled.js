@@ -12,13 +12,12 @@ export const StyledInput = styled.div`
     max-height: 51px;
     font-size: 18px;
     line-height: 21px;
-    background: ${({isValidated}) => isValidated ? "#F2F2F2" : "#f5b8b8"};
+    border: ${({isValidated}) => isValidated ? '1px solid #F2F2F2' : '1px solid #f5b8b8'};
     border-radius: 15px;
     padding: 0 50px;
     padding-top: 18px;
     padding-bottom: 10px;
     outline: none;
-    border: none;
     transition: all .3s linear;
     font-weight: 700;
     font-size: 18px;

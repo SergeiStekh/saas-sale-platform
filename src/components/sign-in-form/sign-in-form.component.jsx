@@ -1,5 +1,9 @@
 import React from 'react'
+import Modal from '../modal/modal'
+import useModal from '../../custom-hooks/useModal'
 import authWithGoogle from '../../utils/authFunctions/authWithGoogle.utils'
+import logInWithEmailAndPassword from '../../utils/authFunctions/logInWithEmailAndPassword.utils'
+import { getAuthErrorMessageByErrorCode } from '../../utils/getAuthErrorMessageByErrorCode'
 import { generateInputData } from '../../assist-functions/generate-input-data';
 import useFormWithInputs from '../../custom-hooks/useFormWithInputs';
 import { googleIcon, facebookIcon, emailIcon, passwordIcon } from '../../styled/icons/icons'
@@ -8,10 +12,10 @@ import Input from '../form/input.component'
 import { StyledSignUpForm } from '../../styled/elements/form/sign-up-form.styled';
 import { StyledSignIn } from '../../styled/elements/sign-in/sign-in.styled';
 import { StyledButton } from '../../styled/elements/button/button.styled';
-import Modal from '../modal/modal';
-import modalImage from '../../assets/images/logo.png'
 
-export default function SignIn() {
+export default function SignInForm() {
+  const { modalState, onModalClose, showModal } = useModal();
+
   const signInInputsData = [
     generateInputData({name: 'email', title: 'email', icon: emailIcon}),
     generateInputData({name: 'password', title: 'Password', icon: passwordIcon}),
@@ -22,7 +26,8 @@ export default function SignIn() {
     onInputChangeHandler,
     onBlurHandler,
     onPasteHandler,
-    onFormSubmitHandler
+    onFormSubmitHandler,
+    resetFormFields
   } = useFormWithInputs(signInInputsData);
 
   const inputElements = signInInputsData.map((signInInputsData, idx) => {
@@ -51,32 +56,37 @@ export default function SignIn() {
     )
   });
 
-  const logUserWithEmailAndPassword = () => {
+  const logUserWithEmailAndPassword = async () => {
+    const email = inputsState["email"].value;
+    const password = inputsState["password"].value;
+    const result = await logInWithEmailAndPassword(email, password);
     
+    const { code: errorCode } = result;
+    
+    if (errorCode) {
+      const errorMessage = getAuthErrorMessageByErrorCode(errorCode);
+      showModal(errorMessage);
+      return errorMessage
+    }
+    resetFormFields();
   }
 
   return (
     <StyledSignIn>
       <h1>A already have an account</h1>
       <h2>Sign in with:</h2>
-      <StyledButton 
-        onClick={authWithGoogle}
-        icon={googleIcon}
-      >
+      <StyledButton onClick={authWithGoogle} icon={googleIcon}>
         Google
       </StyledButton>
-
-      <StyledButton 
-        onClick={authWithGoogle}
-        icon={facebookIcon}
-      >
-        Facebook
+      <StyledButton onClick={authWithGoogle} icon={facebookIcon}
+      >Facebook
       </StyledButton>
       <Separator title={"OR"}/>
       <StyledSignUpForm onSubmit={(event) => onFormSubmitHandler(event, logUserWithEmailAndPassword)}>
         {inputElements}
         <StyledButton>Login</StyledButton>
       </StyledSignUpForm>  
+      <Modal isOpen={modalState.isOpen} messages={modalState.messages} onCloseModalHandler={onModalClose}/>
     </StyledSignIn>
   )
 }
