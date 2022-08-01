@@ -1,8 +1,8 @@
 import {Routes, Route} from 'react-router-dom'
-import Header from './components/main-header/header.component'
-import HomePage from './pages/home-page';
-import SignInPage from './pages/sign-in-page';
-import SignUpPage from './pages/sign-up-page';
+import { Header } from './containers/header'
+import { HomePage } from './pages/home-page';
+import { SignInPage } from './pages/sign-in-page';
+import { SignUpPage } from './pages/sign-up-page';
 
 function App() {
     return (

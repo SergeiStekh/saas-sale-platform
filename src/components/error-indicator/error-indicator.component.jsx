@@ -1,7 +1,10 @@
 import React from 'react'
+import { StyledErrorIndicator } from './error-indicator.styled'
 
-export default function ErrorIndicator() {
+function ErrorIndicatorComponent() {
   return (
-    <div>An error occured</div>
+    <StyledErrorIndicator>An error occured</StyledErrorIndicator>
   )
 }
+
+export { ErrorIndicatorComponent }

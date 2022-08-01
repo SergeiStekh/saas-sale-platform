@@ -1,7 +1,10 @@
 import React from 'react'
+import { StyledLoader } from './loader.styled'
 
-export default function Loader() {
+function LoaderComponent() {
   return (
-    <div>Loading</div>
+    <StyledLoader>Loading</StyledLoader>
   )
 }
+
+export { LoaderComponent }

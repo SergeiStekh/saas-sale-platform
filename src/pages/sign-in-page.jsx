@@ -1,10 +1,12 @@
-import SignInForm from '../components/sign-in-form/sign-in-form.component';
-import { StyledOneColumnLayout } from '../styled/elements/layouts/one-column-layout';
+import { StyledOneColumnLayout } from '../layouts/one-column-layout.styled';
+import { SignInForm } from '../containers/sign-in-form';
 
-export default function SignInPage() {
+function SignInPage() {
   return (
     <StyledOneColumnLayout maxWidth={580}>
       <SignInForm/>
     </StyledOneColumnLayout>
   )
 }
+
+export { SignInPage }

@@ -1,8 +1,10 @@
 import React from 'react'
-import Directory from '../components/directory/directory.component'
+import { Directory } from '../containers/directory'
 
-export default function HomePage() {
+function HomePage() {
   return (
     <Directory />
   )
 }
+
+export { HomePage }
